@@ -74,18 +74,42 @@ function init() {
     // Ground
     var groundGeometry = new THREE.CircleGeometry(1,10);
     var groundMaterial = new THREE.MeshBasicMaterial({ color:0x328327, transparent: true, opacity:0.5});
-    groundMaterial.side = THREE.DoubleSide;
+ groundMaterial.side = THREE.DoubleSide;
 
     var ground = new THREE.Mesh(groundGeometry, groundMaterial);
     scene.add(ground);
 
     // Cube
-    var cubeGeometry = new THREE.BoxGeometry(0.5,0.5,0.1);
+    var cubeGeometry = new THREE.BoxGeometry(0.1,0.1,0.1);
     var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe:false});
 
-    var cube = new THREE.Mesh(cubeGeometry,cubeMaterial);
+    var cube1 = new THREE.Mesh(cubeGeometry,cubeMaterial);
+    cube1.position.x = -0.15;
+    cube1.position.z = 0.15
+    //var cube1 = new Three.Mesh(cubeGeometry, cubeMaterial);
+    scene.add(cube1);
 
-    scene.add(cube);
+    var cubeGeometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+    var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe:false});
+    var cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube2.position.x = -0.15;
+    cube2.position.z= -0.15;
+    scene.add(cube2);
+
+        var cubeGeometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+    var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe:false});
+    var cube3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube3.position.x = 0.15;
+    cube3.position.z = 0.15;
+    scene.add(cube3);
+
+        var cubeGeometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+    var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe:false});
+    var cube4 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube4.position.x = 0.15;
+    cube4.position.z = -0.15;
+    scene.add(cube4);
+
 
     // Sources
     sourceGroup = new THREE.Group();
@@ -181,8 +205,7 @@ function init() {
 
         var  textMaterial = new THREE.MeshBasicMaterial({ color: "rgb(0,0,255)" });
         labelZ = new THREE.Mesh(textGeo , textMaterial);
-
-        labelZ.position.x = 0.01;
+                      labelZ.position.x = 0.01;
         labelZ.position.y = 0.01;
         labelZ.position.z = 1.2;
         subScene.add(labelZ);
@@ -252,7 +275,7 @@ rgbValueStrings.forEach(function(color) {
    sourceMaterial.push(new THREE.PointsMaterial({
        color: color,
        size: 0.05
-   }));
+                              }));
 });
 
 // Update on new event
@@ -309,8 +332,7 @@ document.addEventListener('update-selection',function(e){
 /*
  * Draw potential sources on sphere when potential source data is received
  */
-
-// Material from heatmap gradiant color
+                  // Material from heatmap gradiant color
 var potSourceMaterial = [];
 
 heatmapColors.forEach(function(color) {
@@ -344,15 +366,15 @@ document.addEventListener('potential', function(e) {
 
         currentFrame.potentialSources.forEach(function(s) {
 
-			if ( energyIsInRange(s.e) ) {    // Add source if source's energy's in range
-		        var geo = new THREE.Geometry();
-		        var ps = new THREE.Vector3(s.x,s.y,s.z);
-		        geo.vertices.push(ps);
+                        if ( energyIsInRange(s.e) ) {    // Add source if source's energy's in range
+                        var geo = new THREE.Geometry();
+                        var ps = new THREE.Vector3(s.x,s.y,s.z);
+                        geo.vertices.push(ps);
 
-		        var sys = new THREE.Points(geo,potSourceMaterial[scaleEnergy(s.e)]);
-		        potSources3D.push({obj:sys,life:50});
-		        potGroup.add(sys);
-			}
+                        var sys = new THREE.Points(geo,potSourceMaterial[scaleEnergy(s.e)]);
+                        potSources3D.push({obj:sys,life:50});
+                        potGroup.add(sys);
+                        }
         });
 
     }
@@ -380,7 +402,7 @@ document.addEventListener('clearChart',function(e) {
         sources3DTrail.forEach(function(src,i) {
                 src.obj.material.dispose();
                 src.obj.geometry.dispose();
-                src.obj.parent.remove(src.obj);
+                  src.obj.parent.remove(src.obj);
         });
     }
 
@@ -402,3 +424,4 @@ var viewFront = function() {
 
     controls.reset();
 };
+                                                  
